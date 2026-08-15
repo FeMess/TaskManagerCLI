@@ -12,12 +12,13 @@ def add_task(name, description):
         return
 
     for task in tasks:
-        identifier = max(identifier, task["ID"])
+        identifier = max(identifier, task["id"])
 
     identifier = identifier + 1
+
     tasks.append(
         {
-            "ID": identifier,
+            "id": identifier,
             "name": name,
             "description": description,
             "status": status,
@@ -25,7 +26,7 @@ def add_task(name, description):
     )
 
 
-def list_tasks(status):
+def list_tasks(status="All"):
     status = status.strip().capitalize()
     filtered_tasks = []
 
@@ -43,5 +44,31 @@ def list_tasks(status):
 
     for task in filtered_tasks:
         print(
-            f"{task['ID']} | {task['name']} | {task['status']} | {task['description']} "
+            f"{task['id']} | {task['name']} | {task['status']} | {task['description']} "
         )
+
+
+def update_task(identifier, name, description):
+    name = name.strip().capitalize()
+    description = description.strip().capitalize()
+
+    if name == "":
+        print("The task must have a name.")
+        return
+
+    found_task = find_task_by_id(identifier)
+
+    if not found_task:
+        print("The identifier does not exist.")
+        return
+
+    found_task["name"] = name
+    found_task["description"] = description
+
+
+def find_task_by_id(identifier):
+    for task in tasks:
+        if identifier == task["id"]:
+            return task
+
+    return None
