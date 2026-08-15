@@ -66,6 +66,16 @@ def update_task(identifier, name, description):
     found_task["description"] = description
 
 
+def remove_task(identifier):
+    found_task = find_task_by_id(identifier)
+
+    if not found_task:
+        print("The identifier does not exist.")
+        return
+
+    tasks.remove(found_task)
+
+
 def find_task_by_id(identifier):
     for task in tasks:
         if identifier == task["id"]:
