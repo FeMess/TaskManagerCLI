@@ -44,7 +44,7 @@ def list_tasks(status="All"):
 
     for task in filtered_tasks:
         print(
-            f"{task['id']} | {task['name']} | {task['status']} | {task['description']} "
+            f"{task['id']} | {task['name']} | {task['status']} | {task['description']}"
         )
 
 
@@ -74,6 +74,18 @@ def remove_task(identifier):
         return
 
     tasks.remove(found_task)
+
+
+def view_task(identifier):
+    found_task = find_task_by_id(identifier)
+
+    if not found_task:
+        print("The identifier does not exist.")
+        return
+
+    print(
+        f"{found_task['id']} | {found_task['name']} | {found_task['status']} | {found_task['description']}"
+    )
 
 
 def find_task_by_id(identifier):
