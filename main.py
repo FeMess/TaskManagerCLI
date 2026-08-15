@@ -88,6 +88,34 @@ def view_task(identifier):
     )
 
 
+def mark_task_completed(identifier):
+    found_task = find_task_by_id(identifier)
+
+    if not found_task:
+        print("The identifier does not exist.")
+        return
+
+    if found_task["status"] != "Pending":
+        print("This request is already completed.")
+        return
+
+    found_task["status"] = "Completed"
+
+
+def mark_task_pending(identifier):
+    found_task = find_task_by_id(identifier)
+
+    if not found_task:
+        print("The identifier does not exist.")
+        return
+
+    if found_task["status"] != "Completed":
+        print("This request is already pending.")
+        return
+
+    found_task["status"] = "Pending"
+
+
 def find_task_by_id(identifier):
     for task in tasks:
         if identifier == task["id"]:
