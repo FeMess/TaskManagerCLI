@@ -38,10 +38,10 @@ class CLI:
 
                 manager_response = self.manager.add_task(task_name, task_description)
 
-                if manager_response == False:
+                if manager_response is False:
                     print("The task must have a name.")
                     sleep(2)
-                elif manager_response == True:
+                elif manager_response is True:
                     print("The task has been created successfully.")
                     sleep(2)
 
@@ -52,7 +52,7 @@ class CLI:
 
                 manager_response = self.manager.list_tasks(task_status)
 
-                if manager_response == False:
+                if manager_response is False:
                     print(
                         "Invalid value for status. Try to use [Pending, Completed, All]"
                     )
@@ -88,7 +88,7 @@ class CLI:
 
                 validate_response = self.validate_id_input(task_ID)
 
-                if validate_response is ValueError:
+                if validate_response is None:
                     print("This type of ID is invalid.")
                     sleep(2)
                     continue
@@ -102,7 +102,7 @@ class CLI:
                     task_name, task_description, task_ID
                 )
 
-                if manager_response == False:
+                if manager_response is False:
                     print("The task must have a name.")
                     sleep(2)
 
@@ -110,7 +110,7 @@ class CLI:
                     print("The defined identifier does not exist.")
                     sleep(2)
 
-                elif manager_response == True:
+                elif manager_response is True:
                     print("The task has been updated successfully.")
                     sleep(2)
 
@@ -133,7 +133,7 @@ class CLI:
 
                 validate_response = self.validate_id_input(task_ID)
 
-                if validate_response is ValueError:
+                if validate_response is None:
                     print("This type of ID is invalid.")
                     sleep(2)
                     continue
@@ -145,7 +145,7 @@ class CLI:
                 if manager_response is None:
                     print("The defined identifier does not exist.")
                     sleep(2)
-                elif manager_response == True:
+                elif manager_response is True:
                     print("The task has been removed successfully.")
                     sleep(2)
 
@@ -168,7 +168,7 @@ class CLI:
 
                 validate_response = self.validate_id_input(task_ID)
 
-                if validate_response is ValueError:
+                if validate_response is None:
                     print("This type of ID is invalid.")
                     sleep(2)
                     continue
@@ -205,7 +205,7 @@ class CLI:
 
                 validate_response = self.validate_id_input(task_ID)
 
-                if validate_response is ValueError:
+                if validate_response is None:
                     print("This type of ID is invalid.")
                     sleep(2)
                     continue
@@ -217,10 +217,10 @@ class CLI:
                 if manager_response is None:
                     print("The defined identifier does not exist.")
                     sleep(2)
-                elif manager_response == False:
+                elif manager_response is False:
                     print("The task must have the status: Pending")
                     sleep(2)
-                elif manager_response == True:
+                elif manager_response is True:
                     print("The task has been completed successfully.")
                     sleep(2)
 
@@ -243,7 +243,7 @@ class CLI:
 
                 validate_response = self.validate_id_input(task_ID)
 
-                if validate_response is ValueError:
+                if validate_response is None:
                     print("This type of ID is invalid.")
                     sleep(2)
                     continue
@@ -255,10 +255,10 @@ class CLI:
                 if manager_response is None:
                     print("The defined identifier does not exist.")
                     sleep(2)
-                elif manager_response == False:
+                elif manager_response is False:
                     print("The task must have the status: Completed")
                     sleep(2)
-                elif manager_response == True:
+                elif manager_response is True:
                     print("The task has been marked as pending successfully.")
                     sleep(2)
 
@@ -272,4 +272,4 @@ class CLI:
             identifier = int(identifier)
             return identifier
         except ValueError:
-            return ValueError
+            return None
