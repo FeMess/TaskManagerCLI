@@ -1,9 +1,9 @@
 # Task Manager CLI
 
-## Sobre
+## About
 Simple CLI system to manage tasks.
 
-## Funcionalidades
+## Features
 - Create task
 - List
 - Update
@@ -11,19 +11,19 @@ Simple CLI system to manage tasks.
 - Mark as Completed
 - Mark as Pending
 
-## Tecnologias
+## Technologies
 - Python
 - JSON
 
-## Estrutura
+## Structure
 main.py
 models/
 data/
 
-## Como executar
+## How to Execute
 python main.py
 
-## Regras de negócio
+## Business Rules
 - All task must have a name
 - All task is created as pending
 
