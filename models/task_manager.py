@@ -1,9 +1,12 @@
+import json
+
 from models.task import Task
 
 
 class TaskManager:
     def __init__(self):
         self.tasks = []
+        self.load_tasks()
 
     def add_task(self, name, description):
         name = name.strip().title()
@@ -20,6 +23,7 @@ class TaskManager:
 
         new_task = Task(identifier, name, description)
         self.tasks.append(new_task)
+        self.save_tasks()
 
         return True
 
@@ -50,6 +54,7 @@ class TaskManager:
 
         found_task.name = name
         found_task.description = description
+        self.save_tasks()
 
         return True
 
@@ -60,6 +65,8 @@ class TaskManager:
             return None
 
         self.tasks.remove(found_task)
+        self.save_tasks()
+
         return True
 
     def view_task(self, identifier):
@@ -80,6 +87,7 @@ class TaskManager:
             return False
 
         found_task.status = "Completed"
+        self.save_tasks()
 
         return True
 
@@ -93,6 +101,7 @@ class TaskManager:
             return False
 
         found_task.status = "Pending"
+        self.save_tasks()
 
         return True
 
@@ -101,3 +110,35 @@ class TaskManager:
             if task.id == identifier:
                 return task
         return None
+
+    def load_tasks(self):
+        try:
+            with open("data/tasks.json", "r") as file:
+                json_tasks = json.load(file)
+        except FileNotFoundError:
+            with open("data/tasks.json", "w") as file:
+                json.dump([], file)
+                json_tasks = []
+        except json.JSONDecodeError:
+            json_tasks = []
+
+        for task in json_tasks:
+            new_task = Task(task["id"], task["name"], task["description"])
+            new_task.status = task["status"]
+            self.tasks.append(new_task)
+
+    def save_tasks(self):
+        list_tasks = []
+
+        for task in self.tasks:
+            list_tasks.append(
+                {
+                    "id": task.id,
+                    "name": task.name,
+                    "description": task.description,
+                    "status": task.status,
+                }
+            )
+
+        with open("data/tasks.json", "w") as file:
+            json.dump(list_tasks, file, indent=4)
